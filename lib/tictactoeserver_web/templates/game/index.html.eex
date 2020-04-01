@@ -1,0 +1,30 @@
+<%= if assigns[:error] do%>
+<div class="error"><%= @error %></div>
+<% end %>
+
+<%= if assigns[:name] do%>
+  <div class="phx-hero">
+    <div> Welcome to <%= @name %>    </div>
+  </div>
+<div class="game">
+  <div class="board">
+    <div class="square top left" tabindex="0"><div class=""></div></div>
+    <div class="square top" tabindex="0"><div class=""></div></div>
+    <div class="square top right" tabindex="0"><div class=""></div></div>
+    <div class="square left" tabindex="0"><div class="x"></div></div>
+    <div class="square" tabindex="0"><div class="o"></div></div>
+    <div class="square right" tabindex="0"><div class=""></div></div>
+    <div class="square bottom left" tabindex="0"><div class=""></div></div>
+    <div class="square bottom" tabindex="0"><div class=""></div></div>
+    <div class="square bottom right" tabindex="0"><div class=""></div></div>
+  </div>
+</div>
+<% else %>
+  <div class="phx-hero">
+    <h2>Welcome to Tic Tac Toe</h2>
+  </div>
+  <%= form_for @conn, Routes.game_path(@conn, :create), fn f -> %>
+    <%= text_input f, :name, value: "" %>
+    <%= submit "Create" %>
+  <% end %>
+<% end %>
