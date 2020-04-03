@@ -22,7 +22,9 @@ defmodule TictactoeserverWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", TictactoeserverWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TictactoeserverWeb do
+    pipe_through :api
+
+    post "/mark-position", GameController, :mark_position
+  end
 end

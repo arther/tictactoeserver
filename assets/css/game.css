@@ -13,7 +13,7 @@
     left: 15%;
     right: 15%;
     width: 70%;
-    height: 150vh;
+    height: 600px;
     -webkit-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
@@ -36,6 +36,7 @@
     float: left;
     width: 33.333333333%;
     height: 33.333333333%;
+    color: black;
     border-width: 5px;
     border-color: #fff;
     -webkit-transition: background-color .1s;
