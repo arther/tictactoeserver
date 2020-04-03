@@ -4,22 +4,21 @@
 
 <%= if assigns[:name] do%>
   <div class="phx-hero">
+    <div id="<%= @name %>" class='.d-none name'>
     <div> Welcome to <%= @name %>    </div>
   </div>
-  <%= if assigns[:result] do %>
-    <h1><%= @result %>
-  <%end %>
+  <div class=""><span class="result success"></span></div>
 <div class="game">
   <div class="board">
-    <div class="square top left" tabindex="0"><div class="x"></div></div>
-    <div class="square top" tabindex="0"><div class=""></div></div>
-    <div class="square top right" tabindex="0"><div class=""></div></div>
-    <div class="square left" tabindex="0"><div class=""></div></div>
-    <div class="square" tabindex="0"><div class=""></div></div>
-    <div class="square right" tabindex="0"><div class=""></div></div>
-    <div class="square bottom left" tabindex="0"><div class=""></div></div>
-    <div class="square bottom" tabindex="0"><div class=""></div></div>
-    <div class="square bottom right" tabindex="0"><div class=""></div></div>
+    <div id = "0" class="box square top left" tabindex="0"><div class="box-content"></div></div>
+    <div id = "1" class="box square top" tabindex="0"><div class="box-content"></div></div>
+    <div id = "2" class="box square top right" tabindex="0"><div class="box-content"></div></div>
+    <div id = "3" class="box square left" tabindex="0"><div class="box-content"></div></div>
+    <div id = "4" class="box square" tabindex="0"><div class="box-content"></div></div>
+    <div id = "5" class="box square right" tabindex="0"><div class="box-content"></div></div>
+    <div id = "6" class="box square bottom left" tabindex="0"><div class="box-content"></div></div>
+    <div id = "7" class="box square bottom" tabindex="0"><div class="box-content"></div></div>
+    <div id = "8" class="box square bottom right" tabindex="0"><div class="box-content"></div></div>
   </div>
 </div>
 <% else %>

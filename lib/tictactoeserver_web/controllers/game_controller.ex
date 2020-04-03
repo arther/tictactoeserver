@@ -25,14 +25,16 @@ defmodule TictactoeserverWeb.GameController do
   end
 
   defp game_over({true, nil}, conn, name) do
-    json(conn, %{ name: name, state: Game.get_state(name).matrix, result: "Game Tie"})
+    json(conn, %{ name: name, state: Game.get_state(name).matrix, tie: true})
+    Game.kill_game(name);
   end
 
   defp game_over({true, player}, conn, name) do
     json(conn,
       %{name: name,
       state: Game.get_state(name).matrix,
-      result: "Player #{player} won"}
+      result: player}
     )
+    Game.kill_game(name);
   end
 end
