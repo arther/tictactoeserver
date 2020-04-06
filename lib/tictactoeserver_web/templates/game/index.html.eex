@@ -7,7 +7,11 @@
     <div id="<%= @name %>" class='.d-none name'>
     <div> Welcome to <%= @name %>    </div>
   </div>
-  <div class=""><span class="result success"></span></div>
+  <div class="result-alert alert hide">
+  <span class="result"></span>
+</div>
+<input id="restart-btn" class="hide" type="button" value="Restart"></button>
+<input id="close-btn" class="hide" type="button" value="Close"></button>
 <div class="game">
   <div class="board">
     <div id = "0" class="box square top left" tabindex="0"><div class="box-content"></div></div>

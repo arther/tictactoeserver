@@ -19,6 +19,13 @@ defmodule TictactoeserverWeb.Router do
     get "/", GameController, :index
 
     post "/create", GameController, :create
+
+    get "/games/:name", GameController, :join_game
+
+    get "/games/:name/restart", GameController, :restart_game
+
+    get "/games/:name/close", GameController, :close_game
+
   end
 
   # Other scopes may use custom stacks.
@@ -26,5 +33,8 @@ defmodule TictactoeserverWeb.Router do
     pipe_through :api
 
     post "/mark-position", GameController, :mark_position
+
+    get "/games/:name", GameController, :get_state
+
   end
 end
