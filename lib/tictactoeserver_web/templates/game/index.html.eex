@@ -1,17 +1,7 @@
-<%= if assigns[:error] do%>
-<div class="error"><%= @error %></div>
-<% end %>
-
-<%= if assigns[:name] do%>
-  <div class="phx-hero">
-    <div id="<%= @name %>" class='.d-none name'>
-    <div> Welcome to <%= @name %>    </div>
-  </div>
-  <div class="result-alert alert hide">
-  <span class="result"></span>
-</div>
-<input id="restart-btn" class="hide" type="button" value="Restart"></button>
-<input id="close-btn" class="hide" type="button" value="Close"></button>
+<p class="alert alert-success" role="alert"></p>
+<p class="alert alert-error" role="alert"></p>
+<%# <input id="restart-btn" class="hide" type="button" value="Restart"></button>
+<input id="close-btn" class="hide" type="button" value="Close"></button> %>
 <div class="game">
   <div class="board">
     <div id = "0" class="box square top left" tabindex="0"><div class="box-content"></div></div>
@@ -25,12 +15,8 @@
     <div id = "8" class="box square bottom right" tabindex="0"><div class="box-content"></div></div>
   </div>
 </div>
-<% else %>
-  <div class="phx-hero">
-    <h2>Welcome to Tic Tac Toe</h2>
-  </div>
-  <%= form_for @conn, Routes.game_path(@conn, :create), fn f -> %>
-    <%= text_input f, :name, value: "" %>
-    <%= submit "Create" %>
-  <% end %>
-<% end %>
+<div class="phx-hero">
+  <h2>Welcome to Tic Tac Toe</h2>
+</div>
+<input id="gamename" type="text" placeholder="Game name"/>
+<input id="create-btn" type="button" value="Create/Join"></button>
