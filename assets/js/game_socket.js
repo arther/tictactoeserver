@@ -16,19 +16,18 @@ $(document).ready(() => {
                 $('.alert-error').text(err)
                 return
             }
-            $('.alert-success').text("You are in game now")
-            gameHandler.startGame()
+            gameHandler.startGame(gamename, gamestate, tictactoeSocket.playerName())
             tictactoeSocket.registerEventCalls("tie", () => {
                 gameHandler.tie()
                 tictactoeSocket.close()
             })
             tictactoeSocket.registerEventCalls("won", (resp) => {
-                gameHandler.won(resp.player === tictactoeSocket.player())
+                gameHandler.won(resp.player === tictactoeSocket.playerName())
                 tictactoeSocket.close()
             })
             tictactoeSocket.registerEventCalls("state", (state) => {
                 console.log(state)
-                gameHandler.change(state)
+                gameHandler.change(state, tictactoeSocket.playerName())
             })
         })
     })

@@ -13,7 +13,7 @@ export default class TictactoeSocket {
         this.channel.on(event, callback)
     }
 
-    player(){
+    playerName(){
         return this.player
     }
 

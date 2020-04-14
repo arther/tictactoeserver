@@ -23,7 +23,11 @@
 .board {
     width: 100%;
     height: 100%;
-    background-color: black;
+    background-color: grey;
+}
+
+.turn-active{
+    background-color: lightcoral;
 }
 
 .board .square>div {
@@ -217,4 +221,15 @@
     text-align: center;
     font-family: monospace;
     font-size: -webkit-xxx-large;
+    border-block-color: azure;
+    border-style: dashed;
+    border-color: greenyellow;
+    padding: 10%;
+}
+
+.turn {
+    text-align: center;
+    font-size: -webkit-xxx-large;
+    color: cornflowerblue;
+    font-family: fantasy;
 }

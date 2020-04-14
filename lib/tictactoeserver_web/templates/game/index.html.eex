@@ -1,5 +1,5 @@
 <div class="phx-hero">
-  <h2>Welcome to Tic Tac Toe</h2>
+  <h1 class="welcome-banner"></h1>
 </div>
 <input id="gamename" type="text" placeholder="Game name"/>
 <input id="create-btn" type="button" value="Create/Join"></button>
