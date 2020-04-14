@@ -73,12 +73,14 @@ defmodule TictactoeserverWeb.TictactoeChannel do
   defp game_over?({true, nil}, name, socket) do
     broadcast!(socket, "state", Game.get_state(name))
     broadcast!(socket, "tie", %{})
+    Game.kill_game(name)
     {:noreply, socket}
   end
 
   defp game_over?({true, player}, name, socket) do
     broadcast!(socket, "state", Game.get_state(name))
     broadcast!(socket, "won", %{player: player})
+    Game.kill_game(name)
     {:noreply, socket}
   end
 

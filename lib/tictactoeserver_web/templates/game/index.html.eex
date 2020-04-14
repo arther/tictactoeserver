@@ -1,9 +1,14 @@
+<div class="phx-hero">
+  <h2>Welcome to Tic Tac Toe</h2>
+</div>
+<input id="gamename" type="text" placeholder="Game name"/>
+<input id="create-btn" type="button" value="Create/Join"></button>
 <p class="alert alert-success" role="alert"></p>
 <p class="alert alert-error" role="alert"></p>
 <%# <input id="restart-btn" class="hide" type="button" value="Restart"></button>
 <input id="close-btn" class="hide" type="button" value="Close"></button> %>
 <div class="game">
-  <div class="board">
+  <div class="board hide">
     <div id = "0" class="box square top left" tabindex="0"><div class="box-content"></div></div>
     <div id = "1" class="box square top" tabindex="0"><div class="box-content"></div></div>
     <div id = "2" class="box square top right" tabindex="0"><div class="box-content"></div></div>
@@ -14,9 +19,8 @@
     <div id = "7" class="box square bottom" tabindex="0"><div class="box-content"></div></div>
     <div id = "8" class="box square bottom right" tabindex="0"><div class="box-content"></div></div>
   </div>
+  <div class="result-container hide">
+    <h1 class="result-msg"></h1>
+  </div>
 </div>
-<div class="phx-hero">
-  <h2>Welcome to Tic Tac Toe</h2>
-</div>
-<input id="gamename" type="text" placeholder="Game name"/>
-<input id="create-btn" type="button" value="Create/Join"></button>
+

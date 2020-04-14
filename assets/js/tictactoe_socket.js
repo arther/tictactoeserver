@@ -13,7 +13,14 @@ export default class TictactoeSocket {
         this.channel.on(event, callback)
     }
 
+    player(){
+        return this.player
+    }
+
     joinGame(gamename, callback) {
+        if(this.channel){
+            this.channel.leave()
+        }
         this.gamename = gamename
         this.channel = this.socket.channel("tictactoe:" + gamename, { name: gamename });
         this.channel.onError( () => console.log("there was an error in channel") )
@@ -35,6 +42,6 @@ export default class TictactoeSocket {
     }
 
     close() {
-        this.channel.close()
+        this.channel.leave()
     }
 }

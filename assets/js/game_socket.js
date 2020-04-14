@@ -17,8 +17,13 @@ $(document).ready(() => {
                 return
             }
             $('.alert-success').text("You are in game now")
+            gameHandler.startGame()
             tictactoeSocket.registerEventCalls("tie", () => {
                 gameHandler.tie()
+                tictactoeSocket.close()
+            })
+            tictactoeSocket.registerEventCalls("won", (resp) => {
+                gameHandler.won(resp.player === tictactoeSocket.player())
                 tictactoeSocket.close()
             })
             tictactoeSocket.registerEventCalls("state", (state) => {
