@@ -56,20 +56,14 @@ const showBoard = function () {
 
 const showResult = function (msg, cls) {
     $(".result-container").removeClass("hide")
-    if (!$(".board").hasClass("hide")) {
-        $(".board").addClass("hide")
-    }
-    $(".result-msg").text(msg)
+    $(".result-msg").text(msg + " Start a new game ")
     $("#create-btn").show()
     $("#gamename").removeClass("hide")
 }
 
 const showTie = function () {
     $(".result-container").removeClass("hide")
-    if (!$(".board").hasClass("hide")) {
-        $(".board").addClass("hide")
-    }
-    $(".result-msg").text("Game Tie")
+    $(".result-msg").text("Game Tie !!! Start a new game")
     $("#create-btn").show()
     $("#gamename").removeClass("hide")
 }
@@ -94,6 +88,7 @@ export default class GameHandler {
 
     startGame(gamename, state, playerName) {
         showBoard()
+        this.reset()
         showGameName(gamename)
         refreshBoxes(state)
         toggleTurn(playerName === state.player)
@@ -113,15 +108,13 @@ export default class GameHandler {
 
     tie() {
         showTie()
-        this.reset()
     }
 
     won(won) {
         won
             ? showResult("!!! You won the game !!!")
             : showResult(
-                  "!!! " + quotes[Math.floor(Math.random() * 11)] + " !!!"
+                  "!!! Better luck next time !!!"
               )
-        this.reset()
     }
 }

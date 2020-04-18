@@ -27,7 +27,7 @@
 }
 
 .turn-active {
-    background-color: lightcoral;
+    background-color: lightgreen;
 }
 
 .board .square>div {
@@ -254,7 +254,6 @@
 
 .result-container {
     width: 100%;
-    height: 100%;
     color: lightsalmon;
     border-width: 5px;
     border-color: grey;

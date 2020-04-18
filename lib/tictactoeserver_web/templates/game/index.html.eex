@@ -8,6 +8,9 @@
 <%# <input id="restart-btn" class="hide" type="button" value="Restart"></button>
 <input id="close-btn" class="hide" type="button" value="Close"></button> %>
 <div class="game">
+  <div class="result-container hide">
+    <h1 class="result-msg"></h1>
+  </div>
   <div class="board hide">
     <div id = "0" class="box square top left" tabindex="0"><div class="box-content"></div></div>
     <div id = "1" class="box square top" tabindex="0"><div class="box-content"></div></div>
@@ -18,9 +21,6 @@
     <div id = "6" class="box square bottom left" tabindex="0"><div class="box-content"></div></div>
     <div id = "7" class="box square bottom" tabindex="0"><div class="box-content"></div></div>
     <div id = "8" class="box square bottom right" tabindex="0"><div class="box-content"></div></div>
-  </div>
-  <div class="result-container hide">
-    <h1 class="result-msg"></h1>
   </div>
 </div>
 
