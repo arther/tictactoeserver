@@ -15,14 +15,29 @@ const _getInnerboxClass = function (value) {
     return value === "A" ? "x" : "o"
 }
 
+const resetBox = function() {
+    const boxes = $(".box-content")
+    boxes.each(function (index, element) {
+        $(element).removeClass("o")
+        $(element).removeClass("x")
+    })
+}
+
 const refreshBoxes = function (state) {
     const matrix = state.matrix
     const boxes = $(".box-content")
     boxes.each(function (index, element) {
         const value = matrix[index]
+        console.log("value", index, value);
         if (value !== "x") {
             const className = _getInnerboxClass(value)
             $(element).addClass(className)
+            return;
+        }
+        
+        if (value === "x") {
+            $(element).removeClass("o")
+            $(element).removeClass("x")
         }
     })
 }
@@ -87,11 +102,13 @@ export default class GameHandler {
     change(state, playerName) {
         this.state = state
         refreshBoxes(state)
+        console.log("change", playerName, state.player)
         toggleTurn(playerName === state.player)
     }
 
     reset() {
         this.state = {}
+        resetBox()
     }
 
     tie() {

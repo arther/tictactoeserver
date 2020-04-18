@@ -16,7 +16,11 @@ $(document).ready(() => {
                 $('.alert-error').text(err)
                 return
             }
+            $('.alert-error').text("")
             gameHandler.startGame(gamename, gamestate, tictactoeSocket.playerName())
+            tictactoeSocket.registerEventCalls("invalid_move", () => {
+                $('.alert-error').text("Position already marked")
+            })
             tictactoeSocket.registerEventCalls("tie", () => {
                 gameHandler.tie()
                 tictactoeSocket.close()
@@ -26,6 +30,7 @@ $(document).ready(() => {
                 tictactoeSocket.close()
             })
             tictactoeSocket.registerEventCalls("state", (state) => {
+                $('.alert-error').text("")
                 console.log(state)
                 gameHandler.change(state, tictactoeSocket.playerName())
             })
@@ -33,6 +38,11 @@ $(document).ready(() => {
     })
 
     $(".box").on('click', function (event) {
+        if(!event.target.id){
+            $('.alert-error').text("Position already marked")
+            return;
+        }
+        $('.alert-error').text("")
         tictactoeSocket.markPositon(event.target.id);
     });
 })

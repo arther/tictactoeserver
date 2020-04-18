@@ -60,7 +60,7 @@ defmodule TictactoeserverWeb.TictactoeChannel do
   end
 
   defp mark_position(socket, _name, _position, false) do
-    push(socket, "error", %{msg: "Invalid Move"})
+    push(socket, "invalid_move", %{msg: "Invalid Move"})
     {:noreply, socket}
   end
 
