@@ -34,6 +34,7 @@ defmodule Tictactoeserver.MixProject do
   defp deps do
     [
       {:tictactoe, path: "../tictactoe"},
+      {:dot_square, path: "../dot_square"},
       {:phoenix, "~> 1.4.16"},
       {:phoenix_pubsub, "~> 1.1"},
       {:phoenix_ecto, "~> 4.0"},

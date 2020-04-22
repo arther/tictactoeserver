@@ -3,6 +3,7 @@ defmodule TictactoeserverWeb.UserSocket do
 
   ## Channels
   channel "tictactoe:*", TictactoeserverWeb.TictactoeChannel
+  channel "dotsquare:*", TictactoeserverWeb.DotSuqareChannel
 
   def connect(_params, socket, _connect_info) do
     {:ok, socket}
