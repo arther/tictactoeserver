@@ -15,11 +15,11 @@ module.exports = (env, options) => ({
   },
   entry: {
     'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
-    'tictactoe_game_handler': glob.sync('./vendor/**/*.js').concat(['./js/tictactoe_game_handler.js']),
+    'tictactoe': glob.sync('./vendor/**/*.js').concat(['./js/tictactoe_game_handler.js']),
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, '../dist/static/js'),
+    path: path.resolve(__dirname, '../priv/static/js'),
   },
   module: {
     rules: [
