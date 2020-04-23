@@ -1,41 +1,67 @@
-<div id="app" lass="grid-y">
-		<div class="cell header text-center">
-			<h3 class="large"> DOT - BOX </h3>
-		</div>
-		<div class="cell body">
-			<div class="grid-x">
-				<div class="small-12 medium-12 large-9 cell">
-					<div class="grid-y">
-						<div class="cell text-center">
-							<h5> Main content </h5>
-						</div>
-						<div class="cell text-center">
-							<svg viewBox="3 3 60 60" xmlns="http://www.w3.org/2000/svg" width="600" height="600">
-							  <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" stroke="lightgrey" stroke-width=".5" v-on:click="mark"/>
-							  <rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" fill="red"/>
-							  <circle v-for="dot in dots" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
-							</svg>
-						</div>
-					</div>
-				</div>
-				<div class="small-12 medium-12 large-3 cell text-center">
-					<h5 class="large"> Sidebar </h5>
-					<div>
-					  <div class="score-card text-center" :style="style.A">
-					  	<span>{{players.A}}</span>
-					  </div>
-					</div>
-
-					<div>
-					  <div class="score-card text-center" :style="style.B">
-					  	<span>{{players.B}}</span>
-					  </div>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<div class="cell shrink footer" style="background-color: red">
-			<h5> Footer </h5>
-		</div>
-	</div>
+<link rel="stylesheet" type="text/css" href="<%= Routes.static_path(@conn, "/css/dotbox.css") %>">
+<div class="grid-container">
+  <div id="dot-box-container" class="grid-y">
+    <div class="cell header text-center">
+      <h3 class="large"> DOT - BOX </h3>
+    </div>
+    <div class="grid-container cell">
+      <div id="game-details" class="grid-x grid-padding-x">
+        <div v-if="error" class="callout alert medium-12 large-10" data-closable>
+          {{error}}
+          <button class="close-button " aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div v-if="success" class="callout success medium-12 large-10" data-closable="slide-out-right">
+          {{success}}
+          <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      </div>
+      <div id="game-details" class="grid-x grid-padding-x">
+        <input id="dot-box-name-id" class="medium-12 large-5" type="text" placeholder="Please provide a game name"/>
+        <input id="dot-box-player-name-id" class="medium-12 large-5" type="text" placeholder="Please provide player name"/>
+        <a id="dot-box-create-btn" class="button primary" href="#">Start Game</a>
+      </div>
+    </div>
+    <div class="grid-x">
+      <div class="small-12 medium-12 large-9 cell">
+        <div class="grid-y">
+          <div class="cell text-center">
+            <h5> Main content </h5>
+          </div>
+          <div class="cell text-center">
+            <svg viewBox="3 3 60 60" xmlns="http://www.w3.org/2000/svg" width="600" height="600">
+              <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke="line.stroke" stroke-width=".5" v-on:click="mark"/>
+              <rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" fill="red"/>
+              <circle v-for="dot in dots" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="small-12 medium-12 large-3 cell text-center">
+        <h5 class="large"> Sidebar </h5>
+        <div>
+          <div class="score-card text-center" :style="style.A">
+            <span>{{players.A}}</span>
+          </div>
+        </div>
+        <div>
+          <div class="score-card text-center" :style="style.B">
+            <span>{{players.B}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="cell shrink footer" style="background-color: red">
+    <h5> Footer </h5>
+  </div>
+</div>
+<script
+			  src="https://code.jquery.com/jquery-3.5.0.js"
+			  integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+			  crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.6.3/js/foundation.min.js"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/dotbox.js") %>"></script>

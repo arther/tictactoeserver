@@ -1,8 +1,14 @@
-<div class="phx-hero">
-  <h1 class="welcome-banner"></h1>
-</div>
-<input id="gamename" type="text" placeholder="Game name"/>
-<input id="create-btn" type="button" value="Create/Join"></button>
+<link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+<link rel="stylesheet" type="text/css" href="<%= Routes.static_path(@conn, "/css/tictactoe.css") %>">
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/tictactoe.js") %>"></script>
+<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
+<main role="main" class="container">
+  <div class="phx-hero">
+    <h1 class="welcome-banner"></h1>
+  </div>
+  <input id="gamename" type="text" placeholder="Game name"/>
+  <input id="create-btn" type="button" value="Create/Join"></button>
 <p class="alert alert-success" role="alert"></p>
 <p class="alert alert-error" role="alert"></p>
 <%# <input id="restart-btn" class="hide" type="button" value="Restart"></button>
@@ -12,16 +18,33 @@
     <h1 class="result-msg"></h1>
   </div>
   <div class="board hide">
-    <div id = "0" class="box square top left" tabindex="0"><div class="box-content"></div></div>
-    <div id = "1" class="box square top" tabindex="0"><div class="box-content"></div></div>
-    <div id = "2" class="box square top right" tabindex="0"><div class="box-content"></div></div>
-    <div id = "3" class="box square left" tabindex="0"><div class="box-content"></div></div>
-    <div id = "4" class="box square" tabindex="0"><div class="box-content"></div></div>
-    <div id = "5" class="box square right" tabindex="0"><div class="box-content"></div></div>
-    <div id = "6" class="box square bottom left" tabindex="0"><div class="box-content"></div></div>
-    <div id = "7" class="box square bottom" tabindex="0"><div class="box-content"></div></div>
-    <div id = "8" class="box square bottom right" tabindex="0"><div class="box-content"></div></div>
+    <div id = "0" class="box square top left" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "1" class="box square top" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "2" class="box square top right" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "3" class="box square left" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "4" class="box square" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "5" class="box square right" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "6" class="box square bottom left" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "7" class="box square bottom" tabindex="0">
+      <div class="box-content"></div>
+    </div>
+    <div id = "8" class="box square bottom right" tabindex="0">
+      <div class="box-content"></div>
+    </div>
   </div>
 </div>
-<script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/tictactoe.js") %>"></script>
-<link rel="stylesheet" type="text/css" href="<%= Routes.static_path(@conn, "/css/tictactoe.css") %>">
+</main>
