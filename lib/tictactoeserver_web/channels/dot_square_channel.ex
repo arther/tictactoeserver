@@ -5,14 +5,14 @@ defmodule TictactoeserverWeb.DotSuqareChannel do
   use Phoenix.Channel
   require DotSquare
 
-  def join("dotsquare:" <> name, %{"player_name" => player_name} = _param, socket) do
+  def join("dotsquare:" <> name, %{"player_name" => player_name, "size" => size} = _param, socket) do
     name = name
     |> String.to_atom
-    handle_join_resp(socket, name, player_name, DotSquare.is_game_alive?(name))
+    handle_join_resp(socket, name, player_name, size, DotSquare.is_game_alive?(name))
   end
 
-  defp handle_join_resp(socket, game_id, player_name, false = _game_exists) do
-    {:ok, game_id, _state} = DotSquare.start(game_id, 10)
+  defp handle_join_resp(socket, game_id, player_name, size, false = _game_exists) do
+    {:ok, game_id, _state} = DotSquare.start(game_id, size)
     state = DotSquare.add_player(game_id, :A, player_name)
     socket = socket
         |> assign(:game_id, game_id)
@@ -20,7 +20,7 @@ defmodule TictactoeserverWeb.DotSuqareChannel do
     {:ok, %{state: state}, socket}
   end
 
-  defp handle_join_resp(socket, game_id, player_name, true = _game_exists) do
+  defp handle_join_resp(socket, game_id, player_name, _size, true = _game_exists) do
     state = DotSquare.add_player(game_id, :B, player_name)
     socket = socket
         |> assign(:game_id, game_id)

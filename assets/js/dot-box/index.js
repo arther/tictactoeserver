@@ -3,6 +3,12 @@ import foundationCss from "../../css/foundation.css"
 import DotBoxSocketManager from "./socket-mangaer"
 
 const updateStatesToVM = (state, vm) => {
+    if(!state.players.B) {
+        vm.error = "Wait for your partner"
+        vm.showGrid = false
+        return;
+    }
+    vm.showGrid = true
     vm.gameDone = state.game_done
     vm.players = state.players
     vm.points = state.points
@@ -22,15 +28,16 @@ const bindEvents = (vm, socketManager) => {
             vm.error = "Player name cannot be empty"
             return
         }
-        socketManager.joinGame(gameName, playerName, (err, state) => {
+        const size = 6
+        socketManager.joinGame(gameName, playerName, size, (err, state) => {
             if(err){
                 vm.error = err
                 return;
             }
-            const size = 10
+            
             const dots = []
             const lines = []
-            const distance = 6
+            const distance = 8
             const colors = ["burlywood", "cadetblue"]
             for (let i = 1; i <= size; i++) {
                 for (let j = 1; j <= size; j++) {
@@ -65,6 +72,7 @@ const bindEvents = (vm, socketManager) => {
             }
             vm.dots = dots;
             vm.lines = lines;
+            vm.gameNotStarted = false;
             updateStatesToVM(state, vm)
         })
     })
@@ -75,7 +83,9 @@ $(document).ready(function () {
     const vm = new Vue({
         el: "#dot-box-container",
         data: {
-            game_done: false,
+            showGrid: false,
+            gameNotStarted: true,
+            gameDone: false,
             points: {A: 0, B: 0},
             error: "",
             success: "",
@@ -90,7 +100,14 @@ $(document).ready(function () {
         },
         methods: {
             mark: (event) => {
-                alert(event.target.id)
+                const id = event.target.id;
+                if(id){
+                    console.log(id)
+                    const points = id.split("-")
+                    console.log(points)
+                    socketManager.markLine(points[0], points[1])
+                }
+                
             },
         },
     })

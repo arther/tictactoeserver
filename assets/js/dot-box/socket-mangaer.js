@@ -19,13 +19,14 @@ export default class DotBoxSocketManager {
         return this.player
     }
 
-    joinGame(gamename, playername, callback) {
+    joinGame(gamename, playername, size, callback) {
         if (this.channel) {
             this.channel.leave()
         }
         this.gamename = gamename
         this.channel = this.socket.channel("dotsquare:" + gamename, {
             player_name: playername,
+            size: size
         })
         this.channel.onError(() =>
             console.log("There is an error in channel " + gamename)
