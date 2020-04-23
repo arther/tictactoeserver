@@ -8,4 +8,4 @@ import $ from 'jquery';
 window.jQuery = $;
 window.$ = $;
 // import './game'
-import './game_socket'
+// import './game_socket'

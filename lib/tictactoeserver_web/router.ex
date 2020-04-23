@@ -17,6 +17,8 @@ defmodule TictactoeserverWeb.Router do
     pipe_through :browser
 
     get "/", GameController, :index
+    get "/tictactoe", GameController, :tictactoe
+    get "/dot-box", GameController, :dot_square
 
   end
 

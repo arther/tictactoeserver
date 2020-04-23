@@ -1,3 +1,5 @@
+import css from "../css/game.css"
+
 const quotes = [
     "Its not whether you win or lose, its how you play the game",
     "Losing isn't always the end, sometimes it becomes the beginning",
@@ -81,7 +83,7 @@ const toggleTurn = function (isMyTurn) {
     }
 }
 
-export default class GameHandler {
+export default class TictactoeHandler {
     constructor(state) {
         this.state = state
     }

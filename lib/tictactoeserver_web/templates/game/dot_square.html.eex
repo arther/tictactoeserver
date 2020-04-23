@@ -1,0 +1,41 @@
+<div id="app" lass="grid-y">
+		<div class="cell header text-center">
+			<h3 class="large"> DOT - BOX </h3>
+		</div>
+		<div class="cell body">
+			<div class="grid-x">
+				<div class="small-12 medium-12 large-9 cell">
+					<div class="grid-y">
+						<div class="cell text-center">
+							<h5> Main content </h5>
+						</div>
+						<div class="cell text-center">
+							<svg viewBox="3 3 60 60" xmlns="http://www.w3.org/2000/svg" width="600" height="600">
+							  <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" stroke="lightgrey" stroke-width=".5" v-on:click="mark"/>
+							  <rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" fill="red"/>
+							  <circle v-for="dot in dots" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
+							</svg>
+						</div>
+					</div>
+				</div>
+				<div class="small-12 medium-12 large-3 cell text-center">
+					<h5 class="large"> Sidebar </h5>
+					<div>
+					  <div class="score-card text-center" :style="style.A">
+					  	<span>{{players.A}}</span>
+					  </div>
+					</div>
+
+					<div>
+					  <div class="score-card text-center" :style="style.B">
+					  	<span>{{players.B}}</span>
+					  </div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="cell shrink footer" style="background-color: red">
+			<h5> Footer </h5>
+		</div>
+	</div>

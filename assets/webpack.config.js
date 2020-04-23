@@ -14,11 +14,12 @@ module.exports = (env, options) => ({
     ]
   },
   entry: {
-    './js/app.js': glob.sync('./vendor/**/*.js').concat(['./js/app.js'])
+    'app': glob.sync('./vendor/**/*.js').concat(['./js/app.js']),
+    'tictactoe_game_handler': glob.sync('./vendor/**/*.js').concat(['./js/tictactoe_game_handler.js']),
   },
   output: {
-    filename: 'app.js',
-    path: path.resolve(__dirname, '../priv/static/js')
+    filename: '[name].js',
+    path: path.resolve(__dirname, '../dist/static/js'),
   },
   module: {
     rules: [
@@ -36,7 +37,7 @@ module.exports = (env, options) => ({
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+    new MiniCssExtractPlugin({filename: "../css/[name].css"}),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }]),
     new webpack.ProvidePlugin({
       $: "jquery",

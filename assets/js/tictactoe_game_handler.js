@@ -1,9 +1,10 @@
+import css from '../css/game.css'
 import TictactoeSocket from './tictactoe_socket'
-import GameHandler from './game_handler'
+import TictactoeHandler from './tictactoe_ui-helper'
 
 $(document).ready(() => {
     const tictactoeSocket = new TictactoeSocket()
-    const gameHandler = new GameHandler({})
+    const gameHandler = new TictactoeHandler({})
     $('#create-btn').on('click', (e) => {
         const gamename = $('#gamename').val()
         if(!gamename){
