@@ -26,7 +26,7 @@ for (let i = 1; i <= size; i++) {
                 y2: i * distance,
                 id: `${(i - 1) * size + (j - 1)}-${(i - 1) * size + j}`,
                 stroke: "lightgrey",
-                strokeWidth: ".8"
+                strokeWidth: ".8",
             })
             lines.push({
                 x1: i * distance,
@@ -35,67 +35,52 @@ for (let i = 1; i <= size; i++) {
                 y2: j * distance,
                 id: `${(j - 2) * size + i}-${(j - 1) * size + i}`,
                 stroke: "lightgrey",
-                strokeWidth: ".8"
+                strokeWidth: ".8",
             })
         }
     }
 }
 const linesHash = {}
-lines.map((line) => (linesHash[line.id] = line ))
+lines.map((line) => (linesHash[line.id] = line))
 
-const fillBoxes = (boxes, player) => {
-    /**
-     * TODO: Need to refactor. Pull it out as a method
-     */
-    const responseBox = [];
-    boxes.A.forEach(box => {
-        let minimalIndexPair = [];
-        let min = 100000;
-        box.map(pair => {
+const setBoxCoordinates = (boxes, player) => {
+    return boxes[player].map((box) => {
+        let minimalIndexPair = []
+        let min = 100000
+        box.forEach((pair) => {
             console.log("pair: ", pair, min)
-            if(pair[0] < min){
+            if (pair[0] < min) {
                 min = pair[0]
-                minimalIndexPair = pair;
+                minimalIndexPair = pair
             }
         })
         const id = `${minimalIndexPair[0]}-${minimalIndexPair[1]}`
         const line = linesHash[id]
         console.log("line-pair", line)
-        responseBox.push({x: line.x1, y: line.y1, width: distance, height: distance, color: playerColors.A});
+        return {
+            x: line.x1,
+            y: line.y1,
+            width: distance,
+            height: distance,
+            color: playerColors[player],
+        }
     })
+}
 
-    boxes.B.forEach(box => {
-        let minimalIndexPair = [];
-        let min = 100000;
-        box.map(pair => {
-            console.log("pair: ", pair, min)
-            if(pair[0] < min){
-                min = pair[0]
-                minimalIndexPair = pair;
-            }
-        })
-        const id = `${minimalIndexPair[0]}-${minimalIndexPair[1]}`
-        const line = linesHash[id]
-        console.log("line-pair", line)
-        responseBox.push({x: line.x1, y: line.y1, width: distance, height: distance, color: playerColors.B});
-    })
-    console.log(responseBox)
-    return responseBox;
+const fillBoxes = (boxes) => {
+    return setBoxCoordinates(boxes, "A").concat(setBoxCoordinates(boxes, "B"))
 }
 
 const vertexToLines = (vertex) => {
     const id = `${vertex.pair[0]}-${vertex.pair[1]}`
     const line = linesHash[id]
-    console.log('vertexToLines', id, line.id)
     if (line) {
-        // line.stroke = playerColors[vertex.player];
-        line.stroke = "black";
-        line.strokeWidth = 1;
+        line.stroke = "black"
+        line.strokeWidth = 1
     }
 }
 
 const updateStatesToVM = (state, vm, currentPlayer) => {
-    // console.log("In Update state", state.current_turn, currentPlayer, state.current_turn === currentPlayer)
     if (!state.players.B) {
         vm.success = "Game started. Wait for your partner to join"
         vm.showGrid = false
@@ -105,7 +90,10 @@ const updateStatesToVM = (state, vm, currentPlayer) => {
     vm.gameDone = state.game_done
     vm.players = state.players
     vm.points = state.points
-    vm.isMyTurn = { A: state.players[state.current_turn] === "A", B: state.players[state.current_turn] === "B"}
+    vm.isMyTurn = {
+        A: state.players[state.current_turn] === "A",
+        B: state.players[state.current_turn] === "B",
+    }
     state.vertices.forEach(vertexToLines)
     vm.boxes = fillBoxes(state.boxes)
 }
@@ -154,7 +142,7 @@ $(document).ready(function () {
     const vm = new Vue({
         el: "#dot-box-container",
         data: {
-            isMyTurn: {A: false, B:false},
+            isMyTurn: { A: false, B: false },
             showGrid: false,
             gameNotStarted: true,
             gameDone: false,
@@ -179,7 +167,10 @@ $(document).ready(function () {
                     console.log(id)
                     const points = id.split("-")
                     console.log(points)
-                    socketManager.markLine(parseInt(points[0].trim()), parseInt(points[1]))
+                    socketManager.markLine(
+                        parseInt(points[0].trim()),
+                        parseInt(points[1])
+                    )
                 }
             },
         },

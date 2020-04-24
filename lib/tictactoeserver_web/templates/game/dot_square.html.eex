@@ -6,13 +6,13 @@
     </div>
     <div class="grid-container cell">
       <div id="game-details" class="grid-x grid-padding-x">
-        <div v-if="error" class="callout alert medium-12 large-10" data-closable>
+        <div v-if="error" class="callout alert medium-12 large-10 text-center" data-closable>
           {{error}}
           <button class="close-button " aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div v-if="success" class="callout success medium-12 large-10" data-closable="slide-out-right">
+        <div v-if="success" class="callout success medium-12 large-10 text-center" data-closable="slide-out-right">
           {{success}}
           <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
