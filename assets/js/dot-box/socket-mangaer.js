@@ -5,17 +5,21 @@ export default class DotBoxSocketManager {
         this.socket = new Socket("/socket", {})
         this.socket.connect()
         this.socket.onOpen(() => (this.hasConnected = true))
-        this.socket.onError(() =>
+        this.socket.onError(() =>{
             console.log("There was an error in socket connection")
-        )
-        this.socket.onClose(() => console.log("The socket connection dropped"))
+            this.socket.close()
+        })
+        this.socket.onClose(() => {
+            console.log("The socket connection dropped")
+            this.socket.close()
+        })
     }
 
     registerEventCalls(event, callback) {
         this.channel.on(event, callback)
     }
 
-    playerName() {
+    getPlayer() {
         return this.player
     }
 
@@ -26,14 +30,16 @@ export default class DotBoxSocketManager {
         this.gamename = gamename
         this.channel = this.socket.channel("dotsquare:" + gamename, {
             player_name: playername,
-            size: size
+            size: size,
         })
-        this.channel.onError(() =>
+        this.channel.onError(() => {
             console.log("There is an error in channel " + gamename)
-        )
-        this.channel.onClose(() =>
+            this.channel.leave()
+        })
+        this.channel.onClose(() => {
             console.log(`The ${gamename} channel closed successfully`)
-        )
+            this.channel.leave()
+        })
         this.channel
             .join()
             .receive("ok", (resp) => {
@@ -50,6 +56,10 @@ export default class DotBoxSocketManager {
                 callback(resp)
                 this.channel.leave()
             })
+    }
+
+    publishState() {
+        this.channel.push("dotsquare:pub_state", {})
     }
 
     markLine(start, end) {

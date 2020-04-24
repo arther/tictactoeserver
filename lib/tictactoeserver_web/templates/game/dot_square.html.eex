@@ -19,37 +19,32 @@
           </button>
         </div>
       </div>
-      <div v-if="gameNotStarted" id="game-details" class="grid-x grid-padding-x">
+      <div v-if="gameNotStarted" id="game-details" class="grid-x grid-padding-x text-center">
         <input id="dot-box-name-id" class="medium-12 large-5" type="text" placeholder="Please provide a game name"/>
         <input id="dot-box-player-name-id" class="medium-12 large-5" type="text" placeholder="Please provide player name"/>
         <a id="dot-box-create-btn" class="button primary" href="#">Start Game</a>
       </div>
     </div>
-    <div class="grid-x">
-      <div class="small-12 medium-12 large-9 cell">
+    <div class="grid-x text-center">
+      <div class="small-12 medium-12 large-9 cell  text-center">
         <div class="grid-y">
           <div class="cell text-center">
             <h5> Main content </h5>
           </div>
-          <div v-if="showGrid" class="cell text-center">
+		  <div class="grid-x text-center">
+          <div v-if="showGrid" class="cell text-center small-6 medium-6 large-6">
+            <span v-bind:class="{active: isMyTurn.A}">{{players.A}}</span>
+          </div>
+          <div v-if="showGrid" class="cell text-center small-6 medium-6 large-6">
+            <span v-bind:class="{active: isMyTurn.B}">{{players.B}}</span>
+          </div>
+		  </div>
+          <div v-if="showGrid" class="cell text-center}">
             <svg viewBox="3 3 60 60" xmlns="http://www.w3.org/2000/svg" width="600" height="600">
-              <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke="line.stroke" stroke-width=".5" v-on:click="mark"/>
-              <rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" fill="red"/>
+			<rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" :fill="box.color"/>
+              <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke="line.stroke" :stroke-width="line.strokeWidth" v-on:click="mark"/>
               <circle v-for="dot in dots" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
             </svg>
-          </div>
-        </div>
-      </div>
-      <div class="small-12 medium-12 large-3 cell text-center">
-        <h5 class="large"> Sidebar </h5>
-        <div>
-          <div class="score-card text-center" :style="style.A">
-            <span>{{players.A}}</span>
-          </div>
-        </div>
-        <div>
-          <div class="score-card text-center" :style="style.B">
-            <span>{{players.B}}</span>
           </div>
         </div>
       </div>

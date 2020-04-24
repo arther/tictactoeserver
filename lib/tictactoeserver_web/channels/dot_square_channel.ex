@@ -1,5 +1,14 @@
 require Protocol
 Protocol.derive(Jason.Encoder, DotSquare.State)
+Protocol.derive(Jason.Encoder, DotSquare.Vertex)
+
+defimpl Jason.Encoder, for: Tuple do
+  def encode(data, options) when is_tuple(data) do
+    data
+    |> Tuple.to_list()
+    |> Jason.Encoder.encode(options)
+  end
+end
 
 defmodule TictactoeserverWeb.DotSuqareChannel do
   use Phoenix.Channel
@@ -17,7 +26,7 @@ defmodule TictactoeserverWeb.DotSuqareChannel do
     socket = socket
         |> assign(:game_id, game_id)
         |> assign(:player, :A)
-    {:ok, %{state: state}, socket}
+    {:ok, %{state: state, player: :A}, socket}
   end
 
   defp handle_join_resp(socket, game_id, player_name, _size, true = _game_exists) do
@@ -25,13 +34,20 @@ defmodule TictactoeserverWeb.DotSuqareChannel do
     socket = socket
         |> assign(:game_id, game_id)
         |> assign(:player, :B)
-    {:ok, %{state: state}, socket}
+    {:ok, %{state: state, player: :A}, socket}
   end
 
   def handle_in("dotsquare:add_player", %{"player_name" => player_name} = _params, socket) do
     game_id = socket.assigns.game_id
     state = DotSquare.add_player(game_id, :B, player_name)
     broadcast!(socket, "player_joined", %{state: state})
+    {:noreply, socket}
+  end
+
+  def handle_in("dotsquare:pub_state", _params, socket) do
+    game_id = socket.assigns.game_id
+    state = DotSquare.get_state(game_id)
+    broadcast!(socket, "state", %{state: state})
     {:noreply, socket}
   end
 
