@@ -6,13 +6,13 @@
     </div>
     <div class="grid-container cell">
       <div id="game-details" class="grid-x grid-padding-x">
-        <div v-if="error" class="callout alert medium-12 large-10 text-center" data-closable>
+        <div v-if="error" class="callout alert medium-12 large-12 text-center" data-closable>
           {{error}}
           <button class="close-button " aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div v-if="success" class="callout success medium-12 large-10 text-center" data-closable="slide-out-right">
+        <div v-if="success" class="callout success medium-12 large-12 text-center" data-closable="slide-out-right">
           {{success}}
           <button class="close-button" aria-label="Dismiss alert" type="button" data-close>
             <span aria-hidden="true">&times;</span>
@@ -25,23 +25,60 @@
         <a id="dot-box-create-btn" class="button primary" href="#">Start Game</a>
       </div>
     </div>
-    <div class="grid-x text-center">
-      <div class="small-12 medium-12 large-9 cell  text-center">
+    <div class="grid-x align-center text-center" style="background-color: #436f96;">
+      <div class="small-12 medium-12 large-4 cell  text-center">
         <div class="grid-y">
-          <div class="cell text-center">
-            <h5> Main content </h5>
+          <div class="grid-x align-center ">
+            <div v-if="showGrid" id="score-panel" class="cell large-4 medium-5 small-5 score-panel-p1">
+              <div class="grid-x align-center">
+                <div class="cell large-4 medium-12 small-12 text-center">
+                  <h6 class="player-name">{{players.A}}</h6>
+                </div>
+              </div>
+              <div class="grid-x align-center">
+                <div class="cell large-6 medium-6 small-12 text-center">
+                  <h6 class="player-name">Score</h6>
+                </div>
+                <div class="cell large-6 medium-6 small-12 text-center">
+                  <span class="player-name">{{scores.A}}</span>
+                </div>
+              </div>
+            </div>
+            <div v-if="showGrid" id="score-panel" class="cell large-4 medium-5 small-5 score-panel-p2">
+              <div class="grid-x align-center">
+                <div class="cell large-4 medium-12 small-12 text-center">
+                  <h6 class="player-name">{{players.B}}</h6>
+                </div>
+              </div>
+              <div class="grid-x align-center">
+                <div class="cell large-6 medium-6 small-12 text-center">
+                  <h6 class="player-name">Score</h6>
+                </div>
+                <div class="cell large-6 medium-6 small-12 text-center">
+                  <span class="player-name">{{scores.B}}</span>
+                </div>
+              </div>
+            </div>
           </div>
-		  <div class="grid-x text-center">
-          <div v-if="showGrid" class="cell text-center small-6 medium-6 large-6">
-            <span v-bind:class="{active: isMyTurn.A}">{{players.A}}</span>
+          <div v-if="showGrid" class="grid-x align-center ">
+            <div class="align-center">
+              <div class="final-notice cell large-4 medium-12 small-12 text-center">
+                <span v-if="turn.mine" style="color: white">Your Turn</span>
+                <span v-else style="color: white">Wait ...</span>
+              </div>
+            </div>
           </div>
-          <div v-if="showGrid" class="cell text-center small-6 medium-6 large-6">
-            <span v-bind:class="{active: isMyTurn.B}">{{players.B}}</span>
+          <div v-if="gameDone" class="grid-x align-center ">
+            <div class="align-center">
+              <div class="final-notice cell large-4 medium-12 small-12 text-center">
+                <h1>GAME OVER</h1>
+                <h4>{{winner}} is the Winner</h4>
+              </div>
+            </div>
           </div>
-		  </div>
           <div v-if="showGrid" class="cell text-center}">
             <svg viewBox="3 3 60 60" xmlns="http://www.w3.org/2000/svg" width="600" height="600">
-			<rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" :fill="box.color"/>
+              <rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" :fill="box.color"/>
               <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke="line.stroke" :stroke-width="line.strokeWidth" v-on:click="mark"/>
               <circle v-for="dot in dots" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
             </svg>

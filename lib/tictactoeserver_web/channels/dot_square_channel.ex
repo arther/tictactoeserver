@@ -34,7 +34,7 @@ defmodule TictactoeserverWeb.DotSuqareChannel do
     socket = socket
         |> assign(:game_id, game_id)
         |> assign(:player, :B)
-    {:ok, %{state: state, player: :A}, socket}
+    {:ok, %{state: state, player: :B}, socket}
   end
 
   def handle_in("dotsquare:add_player", %{"player_name" => player_name} = _params, socket) do

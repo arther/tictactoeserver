@@ -1,3 +1,17 @@
+.number-circle {
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+
+    background: #fff;
+    border: 2px solid #666;
+    color: #666;
+    text-align: center;
+
+    font: 32px Arial, sans-serif;
+}
+
 .score-card {
 	margin: 1rem;
 	background-color: burlywood;
@@ -5,8 +19,26 @@
 	height: 250px
 }
 
-.active {
-	border-style: dotted;
+.score-panel-p1 {
+	background-color: burlywood;
 	border-radius: 5px;
-	margin: 1rem;
+	height: 100px	
+}
+
+.score-panel-p2 {
+	background-color: #94ded0;
+	border-radius: 5px;
+	height: 100px	
+}
+
+.player-name {
+
+}
+
+.final-notice {
+	margin-top: 10%;
+	border-radius: 5px;
+	border-style: solid;
+	font-size: large;
+	padding: 1rem;
 }
