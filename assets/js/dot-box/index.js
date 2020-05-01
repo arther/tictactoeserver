@@ -2,14 +2,17 @@ import dotboxCss from "../../css/dot-box.css"
 import foundationCss from "../../css/foundation.css"
 import DotBoxSocketManager from "./socket-mangaer"
 
-const colors = ["burlywood", "#94ded0"]
+const colors = ["burlywood", "#b97484"]
 const playerColors = { A: colors[0], B: colors[1] }
 
 const size = 6
 const dots = []
+const dotShadows = []
 const lines = []
 const distance = 6
 let mine = false
+let dotStrokeWidth = 10
+let viewBox = "0 0 40 40"
 
 for (let i = 1; i <= size; i++) {
     for (let j = 1; j <= size; j++) {
@@ -18,7 +21,15 @@ for (let i = 1; i <= size; i++) {
             x: j * distance,
             y: i * distance,
             id: `${dotId}`,
-            color: "#da7f7f",
+            strokeWidth: `${dotStrokeWidth}px`,
+            color: "#d9d9d9",
+        })
+        dotShadows.push({
+            x: j * distance + .2,
+            y: i * distance + .2,
+            id: `${dotId}`,
+            strokeWidth: `${dotStrokeWidth}px`,
+            color: "#10242f",
         })
         if (j > 1) {
             lines.push({
@@ -27,8 +38,8 @@ for (let i = 1; i <= size; i++) {
                 x2: j * distance,
                 y2: i * distance,
                 id: `${(i - 1) * size + (j - 1)}-${(i - 1) * size + j}`,
-                stroke: "white",
-                strokeWidth: ".8",
+                stroke: "#627d8bf0",
+                strokeWidth: "1.2",
             })
             lines.push({
                 x1: i * distance,
@@ -36,8 +47,8 @@ for (let i = 1; i <= size; i++) {
                 x2: i * distance,
                 y2: j * distance,
                 id: `${(j - 2) * size + i}-${(j - 1) * size + i}`,
-                stroke: "white",
-                strokeWidth: ".8",
+                stroke: "#627d8bf0",
+                strokeWidth: "1.2",
             })
         }
     }
@@ -72,16 +83,21 @@ const fillBoxes = (boxes) => {
     return setBoxCoordinates(boxes, "A").concat(setBoxCoordinates(boxes, "B"))
 }
 
-const vertexToLines = (vertex) => {
+const vertexToLines = (vertex, lastLine) => {
+    console.log("last_line", lastLine)
+    let color =  "#e6e6e6";
+    if(lastLine && (vertex.pair[0] === lastLine[0] && vertex.pair[1] === lastLine[1])){
+        color = 'red';
+    }
     const id = `${vertex.pair[0]}-${vertex.pair[1]}`
     const line = linesHash[id]
     if (line) {
-        line.stroke = "#da7f7f"
-        line.strokeWidth = .8
+        line.stroke = color;
+        // line.strokeWidth = 1.2
     }
 }
 
-const updateStatesToVM = (state, vm, currentPlayer) => {
+const updateStatesToVM = (state, vm, currentPlayer, lastLine) => {
     console.log(currentPlayer)
     if (!state.players.B) {
         vm.success = "Game started. Wait for your partner to join"
@@ -95,11 +111,11 @@ const updateStatesToVM = (state, vm, currentPlayer) => {
     vm.points = state.points
     vm.turn = {
         // text: state.players[state.current_turn],
-        text: state.players[currentPlayer],
+        text: state.players[state.current_turn],
         mine: state.current_turn === currentPlayer
     } 
     console.log(vm.turn)
-    state.vertices.forEach(vertexToLines)
+    state.vertices.forEach(vertex => vertexToLines(vertex, lastLine))
     vm.boxes = fillBoxes(state.boxes)
     vm.scores = { A: state.points.A, B: state.points.B }
     if (state.game_done) {
@@ -120,7 +136,8 @@ const updateStatesToVM = (state, vm, currentPlayer) => {
 
 const bindSocketEvents = (socketManager, vm) => {
     socketManager.registerEventCalls("line_marked", (resp) => {
-        updateStatesToVM(resp.state, vm, socketManager.getPlayer())
+        
+        updateStatesToVM(resp.state, vm, socketManager.getPlayer(), resp.lastLine)
     })
     socketManager.registerEventCalls("state", (resp) => {
         updateStatesToVM(resp.state, vm, socketManager.getPlayer())
@@ -160,6 +177,7 @@ $(document).ready(function () {
     const vm = new Vue({
         el: "#dot-box-container",
         data: {
+            viewBox: viewBox,
             turn: {
                 mine: mine,
                 text: ""
@@ -171,6 +189,7 @@ $(document).ready(function () {
             error: "",
             success: "",
             dots: [],
+            dotShadows: dotShadows,
             lines: [],
             boxes: [],
             markedLines: [],
@@ -184,8 +203,11 @@ $(document).ready(function () {
             },
         },
         methods: {
-            mark: (event) => {
-                const vm = this;
+            mark: function(event){
+                if(!this.turn.mine){
+                    alert("Wait for your turn")
+                    return;
+                }
                 const id = event.target.id
                 if (id) {
                     const points = id.split("-")

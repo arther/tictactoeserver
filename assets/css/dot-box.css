@@ -16,7 +16,9 @@
 	margin: 1rem;
 	background-color: burlywood;
 	border-radius: 5px;
-	height: 250px
+	height: 250px;
+	font-size: larger;
+	font-weight: bolder;
 }
 
 .score-panel-p1 {
@@ -26,13 +28,21 @@
 }
 
 .score-panel-p2 {
-	background-color: #94ded0;
+	background-color: #b97484;
 	border-radius: 5px;
 	height: 100px	
 }
 
 .player-name {
+	font-size: larger;
+    font-family: monospace;
+    font-weight: bolder;
+}
 
+.player-score {
+	font-size: larger;
+    font-family: monospace;
+    font-weight: bolder;
 }
 
 .final-notice {

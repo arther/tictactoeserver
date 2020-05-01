@@ -54,7 +54,7 @@ defmodule TictactoeserverWeb.DotSuqareChannel do
   def handle_in("dotsquare:mark_line", %{"start" => start_point, "end"=> end_point} = _params, socket) do
     game_id = socket.assigns.game_id
     {:ok, state} = DotSquare.add_vertex(game_id, start_point, end_point)
-    broadcast!(socket, "line_marked", %{state: state})
+    broadcast!(socket, "line_marked", %{state: state, lastLine: {start_point, end_point}})
     {:noreply, socket}
   end
 
