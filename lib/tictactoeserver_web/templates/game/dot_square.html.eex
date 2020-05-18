@@ -78,12 +78,13 @@
               </div>
             </div>
           </div>
-          <div v-if="showGrid" class="cell text-center">
+          <div id="play-area" v-if="showGrid" class="cell text-center">
             <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="100%">
               <rect v-for="box in boxes" :x="box.x" :y="box.y" :width="box.width" :height="box.height" :fill="box.color"/>
-              <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke="line.stroke" :stroke-width="line.strokeWidth" v-on:click="mark"/>
+              <line v-for="line in lines" :id="line.id" :x1="line.x1" :y1="line.y1" :x2="line.x2" :y2="line.y2" :stroke="line.stroke" :stroke-width="line.strokeWidth"/>
+              <path id='path' stroke-width="1.25" stroke="red" fill='none' d=''></path>
               <circle v-for="dot in dotShadows" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
-              <circle v-for="dot in dots" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
+              <circle v-for="dot in dots" :id="dot.id" :cx="dot.x" :cy="dot.y" r="1" :fill="dot.color"/>
             </svg>
           </div>
         </div>

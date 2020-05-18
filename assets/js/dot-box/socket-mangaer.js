@@ -38,7 +38,6 @@ export default class DotBoxSocketManager {
         })
         this.channel.onClose(() => {
             console.log(`The ${gamename} channel closed successfully`)
-            this.channel.leave()
         })
         this.channel
             .join()
@@ -46,7 +45,7 @@ export default class DotBoxSocketManager {
                 console.log(
                     `Joined ${gamename} successfully`,
                     resp,
-                    this.channel.player
+                    resp.player
                 )
                 this.player = resp.player
                 callback(null, resp.state)
